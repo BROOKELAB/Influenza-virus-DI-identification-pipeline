@@ -213,12 +213,12 @@ process runSummary {
     file in_file from virema_sum
 
     output:
-    file "*.results"
-    file "*.txt"
+    file "*.parse50"
+    file "*.stat50"
 
     """
     perl $projectPath/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.parse50
-    perl $projectPath/src/perl/reads-compare-neat-to-real.pl $in_file ${in_file.baseName}.stat50
+    perl $projectPath/src/perl/reads-compare-neat-to-real.pl ${in_file.baseName}.parse50 ${in_file.baseName}.stat50
 
     """
 }
