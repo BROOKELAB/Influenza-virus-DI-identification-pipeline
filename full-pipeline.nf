@@ -44,6 +44,7 @@ fastqcMod = 'FastQC/0.11.5-IGB-gcc-4.9.4-Java-1.8.0_121'
 bowtie2Mod = 'Bowtie2/2.3.1-IGB-gcc-4.9.4'
 bowtie1Mod = 'bowtie/1.2'
 pythonMod = 'Python/2.7.13-IGB-gcc-4.9.4'
+perlMod = 'Perl/5.24.1-IGB-gcc-4.9.4'
 
 /*
 * Trimming options. Change trimming options here and note that $trimVersion is used to make sure
@@ -166,7 +167,7 @@ process runbowtie2 {
 
     """
 
-    bowtie2 -p $bowtie2CPU -x $projectPath/data/genome/bowtie2-2.3.1-index/ref_PR8.fasta -U ${in_cat} --score-min $scoreMin \
+    bowtie2 -p $bowtie2CPU -x $projectPath/data/genome/bowtie2-2.3.1-index/ref-simple-Cal07.fasta -U ${in_cat} --score-min $scoreMin \
     --al ${in_cat.baseName}_aligned.fq --un ${in_cat.baseName}_unaligned.fq > ${in_cat.baseName}.sam
 
     """
