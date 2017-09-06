@@ -195,7 +195,7 @@ process runVirema {
     """
     python ${viremaApp}/ViReMa.py --MicroInDel_Length $micro -DeDup --Defuzz $defuzz \
     --N $mismatch --Output_Tag ${unalign.baseName} -ReadNamesEntry --p $viremaCPU \
-    $projectPath/data/genome/bowtie-1.2.0-index/ref_PR8-padded ${unalign} ${unalign.baseName}.results
+    $projectPath/data/genome/bowtie-1.2.0-index/ref_Cal07_padded ${unalign} ${unalign.baseName}.results
 
     """
 }
