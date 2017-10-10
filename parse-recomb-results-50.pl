@@ -30,19 +30,17 @@ while(<INFILE>){
                 }
                 else{ next;}
         }
-        elsif($line =~ /\d+_to_\d+_#_\d+/ && $i==1){
+         elsif($line =~ /\d+_to_\d+_#_\d+/ && $i==1){
                 $line =~ /(\d+)_to_(\d+)_#_(\d+)/;
-                if($3 > 49){ #Checks for valid support, remove if you don't want this
-                        if($revbool){
-                                $key = "$seg" . "_" . $2 . "_" . $1;
-                                $val = $3;
-                                $revhash{$key} = $val;
-                        }
-                        else{
-                                $key = "$seg" . "_" . $1 . "_" . $2;
-                                $val = $3;
-                                $forhash{$key} = $val;
-                        }
+                if($revbool){
+                        $key = "$seg" . "_" . $2 . "_" . $1;
+                        $val = $3;
+                        $revhash{$key} = $val;
+                }
+                else{
+                        $key = "$seg" . "_" . $1 . "_" . $2;
+                        $val = $3;
+                        $forhash{$key} = $val;
                 }
         }
         elsif($line =~ /^\@EndofLibrary/ && $i==1){
@@ -60,15 +58,22 @@ for $k (sort keys %mergehash){
         @arr = split(/_/, $k);
         if(exists $revhash{$k} && exists $forhash{$k}){
                 $total = $revhash{$k} + $forhash{$k};
-                print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\n";
+                if($total > 49){
+                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\n";
+                }
         }
         elsif(exists $forhash{$k}){
-                print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\n";
+                if($forhash{$k} > 49){
+                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\n";
+                }
         }
         else{
-                print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\n";
+                if($revhash{$k} > 49){
+                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\n";
+                }
         }
 }
+
 
 
 
