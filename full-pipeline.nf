@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 /*
 * USAGE: nextflow run myscript.nf -qs 8
-* Note that "-qs" is similar to "#PBS -t" and will only run a specified # of jobs at a time.
+* Note that "-qs" is similar to "#SLURM --array=##%8" and will only run a specified # of jobs at a time.
 * This script creates hard links to data that exists in nextflows work directory.
 */
 
@@ -15,13 +15,13 @@
 projectPath = "/home/groups/hpcbio_shared/cbrooke_lab"
 
 /* Paths to bowtie indices */
-bowtie2_index = file("$projectPath/data/genome/bowtie2-2.3.1-index/ref_PR8.fasta*")
-bowtie_index = file("$projectPath/data/genome/bowtie-1.2.0-index/ref_PR8-padded*")
+bowtie2_index = file("$projectPath/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta*")
+bowtie_index = file("$projectPath/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded*")
 
 viremaApp = "$projectPath/apps/ViReMa_0.6"
 
 /* Path to raw fastq files */
-rawDataPath = "$projectPath/data/raw-seq/"
+rawDataPath = "$projectPath/data/raw-seq/5_samples"
 Channel
     .fromFilePairs("$rawDataPath/*_R{1,2}_001.fastq", flat: true)
     .ifEmpty {error "Cannot find any reads matching: ${params.reads}"}
@@ -50,19 +50,19 @@ perlMod = 'Perl/5.24.1-IGB-gcc-4.9.4'
 * Trimming options. Change trimming options here and note that $trimVersion is used to make sure
 * the version is called consistently.
 */
-trimOptions = 'ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:15:10 LEADING:28 TRAILING:28 MINLEN:30'
+trimOptions = 'ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:15:10 SLIDINGWINDOW:3:20 LEADING:28 TRAILING:28 MINLEN:75'
 
 /* Alignment & Counting options */
-scoreMin = 'L,0,-0.075' /* This is the value for --score-min */
+scoreMin = 'L,0,-0.1' /* This is the value for --score-min */
 micro = '20' /* The minimum length of microindels */
 defuzz = '3' /* If a start position is fuzzy, then its reported it at the 3' end (3), 5' end (5), or the center of fuzzy region (0). */
 mismatch = '0' /* This is the value of --N in ViReMa */
 
 /*Output paths*/
-trimPath = "$projectPath/results/Aug2017-real-nextflow/trimmomatic"
-fastqcPath = "$projectPath/results/Aug2017-real-nextflow/fastqc_trim"
-alignPath = "$projectPath/results/Aug2017-real-nextflow/bowtie2"
-viremaPath = "$projectPath/results/Aug2017-real-nextflow/virema"
+trimPath = "$projectPath/results/Oct2017-5samples/trimmomatic"
+fastqcPath = "$projectPath/results/Oct2017-5samples/fastqc_trim"
+alignPath = "$projectPath/results/Oct2017-5samples/bowtie2"
+viremaPath = "$projectPath/results/Oct2017-5samples/virema"
 
 
 /*
@@ -140,7 +140,7 @@ process combineFASTQ {
 
     """
     cat ${read1} ${read2} > ${pair_id}_both.fq
-        """
+    """
 }
 
 /*
@@ -167,7 +167,7 @@ process runbowtie2 {
 
     """
 
-    bowtie2 -p $bowtie2CPU -x $projectPath/data/genome/bowtie2-2.3.1-index/ref-simple-Cal07.fasta -U ${in_cat} --score-min $scoreMin \
+    bowtie2 -p $bowtie2CPU -x $projectPath/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta -U ${in_cat} --score-min $scoreMin \
     --al ${in_cat.baseName}_aligned.fq --un ${in_cat.baseName}_unaligned.fq > ${in_cat.baseName}.sam
 
     """
@@ -193,9 +193,11 @@ process runVirema {
     file "*.txt"
 
     """
+    awk '{print (NR%4 == 1) ? "@1_" ++i : $0}' ${unalign} >  ${unalign.baseName}_rename.fq
+    
     python ${viremaApp}/ViReMa.py --MicroInDel_Length $micro -DeDup --Defuzz $defuzz \
     --N $mismatch --Output_Tag ${unalign.baseName} -ReadNamesEntry --p $viremaCPU \
-    $projectPath/data/genome/bowtie-1.2.0-index/ref_Cal07_padded ${unalign} ${unalign.baseName}.results
+    $projectPath/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded ${unalign.baseName}_rename.fq ${unalign.baseName}.results
 
     """
 }
@@ -218,7 +220,6 @@ process runSummary {
 
     """
     perl $projectPath/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.parse50
-    perl $projectPath/src/perl/reads-compare-neat-to-real.pl ${in_file.baseName}.parse50 ${in_file.baseName}.stat50
-
+   
     """
 }
