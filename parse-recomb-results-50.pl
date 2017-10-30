@@ -36,13 +36,11 @@ while(<INFILE>){
                         $key = "$seg" . "_" . $2 . "_" . $1;
                         $val = $3;
                         $revhash{$key} = $val;
-                        if($2 > $1){print "Insertion: $key\n";} #Rough way to report Insertions
                 }
                 else{
                         $key = "$seg" . "_" . $1 . "_" . $2;
                         $val = $3;
                         $forhash{$key} = $val;
-                        if($1 > $2){print "Insertion: $key\n";} #Rough way to report Insertions
                 }
         }
         elsif($line =~ /^\@EndofLibrary/ && $i==1){
@@ -51,27 +49,29 @@ while(<INFILE>){
         }
 }
 
-#Merge hashes to get union of keys
 %mergehash = (%revhash, %forhash);
-print OUTFILE "Segment\tStart\tStop\tForward_support\tReverse_support\tTotal_support\n";
+print OUTFILE "Segment\tStart\tStop\tForward_support\tReverse_support\tTotal_support\tIndel_type\n";
 
-#Print output table
+#Print table
 for $k (sort keys %mergehash){
         @arr = split(/_/, $k);
+        $indel = "D";
+        if($arr[1] > $arr[2]){$indel = "I";}
+
         if(exists $revhash{$k} && exists $forhash{$k}){
                 $total = $revhash{$k} + $forhash{$k};
                 if($total > 49){
-                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\n";
+                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\t$indel\n";
                 }
         }
         elsif(exists $forhash{$k}){
                 if($forhash{$k} > 49){
-                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\n";
+                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\t$indel\n";
                 }
         }
         else{
                 if($revhash{$k} > 49){
-                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\n";
+                        print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\t$indel\n";
                 }
         }
 }
