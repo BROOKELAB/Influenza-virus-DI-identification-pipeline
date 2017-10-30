@@ -36,11 +36,13 @@ while(<INFILE>){
                         $key = "$seg" . "_" . $2 . "_" . $1;
                         $val = $3;
                         $revhash{$key} = $val;
+                        if($2 > $1){print "Insertion: $key\n";} #Rough way to report Insertions
                 }
                 else{
                         $key = "$seg" . "_" . $1 . "_" . $2;
                         $val = $3;
                         $forhash{$key} = $val;
+                        if($1 > $2){print "Insertion: $key\n";} #Rough way to report Insertions
                 }
         }
         elsif($line =~ /^\@EndofLibrary/ && $i==1){
