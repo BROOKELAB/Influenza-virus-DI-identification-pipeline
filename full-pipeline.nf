@@ -190,7 +190,9 @@ process runVirema {
     output:
     file "*.results"
     file "*Virus_Recombination_Results.txt" into virema_sum
-    file "*.txt"
+    file "*tions.txt"
+    file "*UnMapped*.txt"
+    file "*Single*.txt"
 
     """
     awk '{print (NR%4 == 1) ? "@1_" ++i : $0}' ${unalign} >  ${unalign.baseName}_rename.fq
