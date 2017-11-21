@@ -41,8 +41,8 @@ viremaCPU = '6'
 trimMod = 'Trimmomatic/0.36-Java-1.8.0_121'
 trimVersion = '0.36' /*Put the version here only*/
 fastqcMod = 'FastQC/0.11.5-IGB-gcc-4.9.4-Java-1.8.0_121'
-bowtie2Mod = 'Bowtie2/2.3.1-IGB-gcc-4.9.4'
-bowtie1Mod = 'bowtie/1.2'
+bowtie2Mod = 'Bowtie2/2.3.2-IGB-gcc-4.9.4'
+bowtie1Mod = 'bowtie/1.2.0-IGB-gcc-4.9.4'
 pythonMod = 'Python/2.7.13-IGB-gcc-4.9.4'
 perlMod = 'Perl/5.24.1-IGB-gcc-4.9.4'
 
@@ -53,16 +53,16 @@ perlMod = 'Perl/5.24.1-IGB-gcc-4.9.4'
 trimOptions = 'ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:15:10 SLIDINGWINDOW:3:20 LEADING:28 TRAILING:28 MINLEN:75'
 
 /* Alignment & Counting options */
-scoreMin = 'L,0,-0.1' /* This is the value for --score-min */
+scoreMin = 'L,0,-0.3' /* This is the value for --score-min */
 micro = '20' /* The minimum length of microindels */
 defuzz = '3' /* If a start position is fuzzy, then its reported it at the 3' end (3), 5' end (5), or the center of fuzzy region (0). */
 mismatch = '0' /* This is the value of --N in ViReMa */
 
 /*Output paths*/
-trimPath = "$projectPath/results/Oct2017-5samples/trimmomatic"
-fastqcPath = "$projectPath/results/Oct2017-5samples/fastqc_trim"
-alignPath = "$projectPath/results/Oct2017-5samples/bowtie2"
-viremaPath = "$projectPath/results/Oct2017-5samples/virema"
+trimPath = "$projectPath/results/Nov2017-5samples/trimmomatic"
+fastqcPath = "$projectPath/results/Nov2017-5samples/fastqc_trim"
+alignPath = "$projectPath/results/Nov2017-5samples/bowtie2"
+viremaPath = "$projectPath/results/Nov2017-5samples/virema"
 
 
 /*
@@ -137,7 +137,6 @@ process combineFASTQ {
     output:
     file  "*_both.fq" into bowtie2_channel
 
-
     """
     cat ${read1} ${read2} > ${pair_id}_both.fq
     """
@@ -183,6 +182,7 @@ process runVirema {
     memory "$viremaMem GB"
     module "${bowtie1Mod}:${pythonMod}"
     publishDir viremaPath, mode: 'link'
+    afterScript 'rm TEMPREADS TEMPSAM1'
 
     input:
     file unalign from virema_channel
@@ -215,11 +215,9 @@ process runSummary {
     file in_file from virema_sum
 
     output:
-    file "*.parse50"
-    file "*.stat50"
+    file "*.par50"
 
     """
-    perl $projectPath/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.parse50
-   
+    perl $projectPath/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.par50
     """
 }
