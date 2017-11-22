@@ -15,15 +15,15 @@
 projectPath = "/home/groups/hpcbio_shared/cbrooke_lab"
 
 /* Paths to bowtie indices */
-bowtie2_index = file("$projectPath/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta*")
-bowtie_index = file("$projectPath/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded*")
+bowtie2_index = file("${projectPath}/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta*")
+bowtie_index = file("${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded*")
 
-viremaApp = "$projectPath/apps/ViReMa_0.6"
+viremaApp = "${projectPath}/apps/ViReMa_0.6"
 
 /* Path to raw fastq files */
-rawDataPath = "$projectPath/data/raw-seq/5_samples"
+rawDataPath = "${projectPath}/data/raw-seq/5_samples"
 Channel
-    .fromFilePairs("$rawDataPath/*_R{1,2}_001.fastq", flat: true)
+    .fromFilePairs("${rawDataPath}/*_R{1,2}_001.fastq", flat: true)
     .ifEmpty {error "Cannot find any reads matching: ${params.reads}"}
     .set {reads}
 
@@ -42,7 +42,7 @@ trimMod = 'Trimmomatic/0.36-Java-1.8.0_121'
 trimVersion = '0.36' /*Put the version here only*/
 fastqcMod = 'FastQC/0.11.5-IGB-gcc-4.9.4-Java-1.8.0_121'
 bowtie2Mod = 'Bowtie2/2.3.2-IGB-gcc-4.9.4'
-bowtie1Mod = 'bowtie/1.2.0-IGB-gcc-4.9.4'
+bowtie1Mod = 'Bowtie/1.2.0-IGB-gcc-4.9.4'
 pythonMod = 'Python/2.7.13-IGB-gcc-4.9.4'
 perlMod = 'Perl/5.24.1-IGB-gcc-4.9.4'
 
@@ -59,10 +59,10 @@ defuzz = '3' /* If a start position is fuzzy, then its reported it at the 3' end
 mismatch = '0' /* This is the value of --N in ViReMa */
 
 /*Output paths*/
-trimPath = "$projectPath/results/Nov2017-5samples/trimmomatic"
-fastqcPath = "$projectPath/results/Nov2017-5samples/fastqc_trim"
-alignPath = "$projectPath/results/Nov2017-5samples/bowtie2"
-viremaPath = "$projectPath/results/Nov2017-5samples/virema"
+trimPath = "${projectPath}/results/Nov2017-5samples/trimmomatic"
+fastqcPath = "${projectPath}/results/Nov2017-5samples/fastqc_trim"
+alignPath = "${projectPath}/results/Nov2017-5samples/bowtie2"
+viremaPath = "${projectPath}/results/Nov2017-5samples/virema"
 
 
 /*
@@ -85,13 +85,12 @@ process trimmomatic {
     output:
     set val(id), "${read1.baseName}.qualtrim.paired.fastq", "${read2.baseName}.qualtrim.paired.fastq" into fastqChannel
     set val(id), "${read1.baseName}.qualtrim.paired.fastq", "${read2.baseName}.qualtrim.paired.fastq" into catChannel
-    file "*.trimmomatic.log"
     file "*.qualtrim.unpaired.fastq"
     stdout trim_out
 
     """
     java -jar \$EBROOTTRIMMOMATIC/trimmomatic-${trimVersion}.jar PE \
-    -threads $trimCPU -phred33 -trimlog ${id}.trimmomatic.log ${read1} ${read2} \
+    -threads $trimCPU -phred33 $read1 $read2 \
     ${read1.baseName}.qualtrim.paired.fastq ${read1.baseName}.qualtrim.unpaired.fastq \
     ${read2.baseName}.qualtrim.paired.fastq ${read2.baseName}.qualtrim.unpaired.fastq $trimOptions
     """
@@ -117,15 +116,14 @@ process runFASTQC {
     file "*.zip"
 
     """
-    fastqc -o ./ --noextract ${read1}
-    fastqc -o ./ --noextract ${read2}
+    fastqc -o ./ --noextract $read1
+    fastqc -o ./ --noextract $read2
     """
 }
 
 /*
 * Step 3. Combine FASTQ pairs
 */
-
 process combineFASTQ {
     executor 'slurm'
     queue myQueue
@@ -138,25 +136,22 @@ process combineFASTQ {
     file  "*_both.fq" into bowtie2_channel
 
     """
-    cat ${read1} ${read2} > ${pair_id}_both.fq
+    cat $read1 $read2 > ${pair_id}_both.fq
     """
 }
 
 /*
 * Step 4. Bowtie2 alignment
 */
-
 process runbowtie2 {
     executor 'slurm'
     cpus bowtie2CPU
     queue myQueue
     memory "$bowtie2Mem GB"
-    module "$bowtie2Mod"
+    module bowtie2Mod
     publishDir alignPath, mode: 'link'
 
-
     input:
-    file bowtie2_index
     file in_cat from bowtie2_channel
 
     output:
@@ -165,8 +160,7 @@ process runbowtie2 {
         file "*_aligned.fq"
 
     """
-
-    bowtie2 -p $bowtie2CPU -x $projectPath/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta -U ${in_cat} --score-min $scoreMin \
+    bowtie2 -p $bowtie2CPU -x ${projectPath}/data/genome/bowtie2-2.3.2-index/modified_PR8 -U $in_cat --score-min $scoreMin \
     --al ${in_cat.baseName}_aligned.fq --un ${in_cat.baseName}_unaligned.fq > ${in_cat.baseName}.sam
 
     """
@@ -182,7 +176,6 @@ process runVirema {
     memory "$viremaMem GB"
     module "${bowtie1Mod}:${pythonMod}"
     publishDir viremaPath, mode: 'link'
-    afterScript 'rm TEMPREADS TEMPSAM1'
 
     input:
     file unalign from virema_channel
@@ -193,16 +186,18 @@ process runVirema {
     file "*tions.txt"
     file "*UnMapped*.txt"
     file "*Single*.txt"
+    file "*_rename.fq"
 
     """
-    awk '{print (NR%4 == 1) ? "@1_" ++i : $0}' ${unalign} >  ${unalign.baseName}_rename.fq
+    awk '{print (NR%4 == 1) ? "@1_" ++i : \$0}' $unalign >  ${unalign.baseName}_rename.fq
     
     python ${viremaApp}/ViReMa.py --MicroInDel_Length $micro -DeDup --Defuzz $defuzz \
-    --N $mismatch --Output_Tag ${unalign.baseName} -ReadNamesEntry --p $viremaCPU \
-    $projectPath/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded ${unalign.baseName}_rename.fq ${unalign.baseName}.results
+    --N $mismatch --Output_Tag $unalign.baseName -ReadNamesEntry --p $viremaCPU \
+    ${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded ${unalign.baseName}_rename.fq ${unalign.baseName}.results
 
     """
 }
+
 /*
 * Step 6. ViReMa Summary of results (w/ perl scripts)
 */
@@ -210,7 +205,7 @@ process runSummary {
     executor 'slurm'
     queue myQueue
     memory "$viremaMem GB"
-    module "${perlMod}"
+    module perlMod
     publishDir viremaPath, mode: 'link'
 
     input:
@@ -220,6 +215,6 @@ process runSummary {
     file "*.par50"
 
     """
-    perl $projectPath/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.par50
+    perl ${projectPath}/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.par50
     """
 }
