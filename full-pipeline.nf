@@ -133,10 +133,10 @@ process combineFASTQ {
     set pair_id, file(read1), file(read2) from catChannel
 
     output:
-    file  "*_both.fq" into bowtie2_channel
+    file  "*both.fq" into bowtie2_channel
 
     """
-    cat $read1 $read2 > ${pair_id}_both.fq
+    cat $read1 $read2 > ${pair_id}both.fq
     """
 }
 
@@ -215,6 +215,6 @@ process runSummary {
     file "*.par50"
 
     """
-    perl ${projectPath}/src/perl/parse-recomb-results-50.pl $in_file ${in_file.baseName}.par50
+    perl ${projectPath}/src/Brooke-DARPA/parse-recomb-results-50.pl $in_file ${in_file.baseName}.par50
     """
 }
