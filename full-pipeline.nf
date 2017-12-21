@@ -15,8 +15,8 @@
 projectPath = "/home/groups/hpcbio_shared/cbrooke_lab"
 
 /* Paths to bowtie indices */
-bowtie2_index = file("${projectPath}/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta*")
-bowtie_index = file("${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded*")
+bowtie2_index = "${projectPath}/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta"
+bowtie_index = "${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded"
 
 viremaApp = "${projectPath}/apps/ViReMa_0.6"
 
@@ -160,7 +160,7 @@ process runbowtie2 {
         file "*_aligned.fq"
 
     """
-    bowtie2 -p $bowtie2CPU -x ${projectPath}/data/genome/bowtie2-2.3.2-index/modified_PR8 -U $in_cat --score-min $scoreMin \
+    bowtie2 -p $bowtie2CPU -x $bowtie2_index -U $in_cat --score-min $scoreMin \
     --al ${in_cat.baseName}_aligned.fq --un ${in_cat.baseName}_unaligned.fq > ${in_cat.baseName}.sam
 
     """
@@ -193,7 +193,7 @@ process runVirema {
     
     python ${viremaApp}/ViReMa.py --MicroInDel_Length $micro -DeDup --Defuzz $defuzz \
     --N $mismatch --Output_Tag $unalign.baseName -ReadNamesEntry --p $viremaCPU \
-    ${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded ${unalign.baseName}_rename.fq ${unalign.baseName}.results
+    $virema_index ${unalign.baseName}_rename.fq ${unalign.baseName}.results
 
     """
 }
