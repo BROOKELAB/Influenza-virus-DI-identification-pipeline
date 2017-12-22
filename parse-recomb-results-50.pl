@@ -4,6 +4,7 @@
 
 open (INFILE, "$ARGV[0]") or die "Could not open file $ARGV[0]!\n";
 open (OUTFILE, ">$ARGV[1]") or die "Could not open output file $ARGV[1]!\n";
+open (UNKNOWN, ">$ARGV[1].unknown") or die "Could not open output file $ARGV[1]!\n";
 
 
 my $i=0; #Keeps track of whether in the midst of a valid segment
@@ -50,7 +51,8 @@ while(<INFILE>){
 }
 
 %mergehash = (%revhash, %forhash);
-print OUTFILE "Segment\tStart\tStop\tForward_support\tReverse_support\tTotal_support\tIndel_type\n";
+print OUTFILE "Segment\tStart\tStop\tForward_support\tReverse_support\tTotal_support\n";
+print UNKNOWN "Segment\tStart\tStop\tForward_support\tReverse_support\tTotal_support\n";
 
 #Print table
 for $k (sort keys %mergehash){
@@ -61,17 +63,32 @@ for $k (sort keys %mergehash){
 	if(exists $revhash{$k} && exists $forhash{$k}){
 		$total = $revhash{$k} + $forhash{$k};
 		if($total > 49){
-			print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\t$indel\n";
+			if($indel eq "D"){
+			print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\n";
+			}
+			else{
+			print UNKNOWN "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t$revhash{$k}\t$total\n";
+			}
 		}
 	}
 	elsif(exists $forhash{$k}){
 		if($forhash{$k} > 49){
-			print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\t$indel\n";
+			if($indel eq "D"){
+			print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\n";
+			}
+			else{
+			print UNKNOWN "$arr[0]\t$arr[1]\t$arr[2]\t$forhash{$k}\t0\t$forhash{$k}\n";
+			}
 		}
 	}
 	else{
 		if($revhash{$k} > 49){
-			print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\t$indel\n";
+			if($indel eq "D"){
+			print OUTFILE "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\n";
+			}
+			else{
+			print UNKNOWN "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revhash{$k}\t$revhash{$k}\n";
+			}
 		}
 	}
 }
