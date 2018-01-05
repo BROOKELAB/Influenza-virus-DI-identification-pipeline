@@ -1,0 +1,4 @@
+Updates to ViReMa version 0.6
+
+Fixed Defuzz Bug
+Fixed -BED option
