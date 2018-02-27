@@ -70,12 +70,12 @@ Command Example:
     $Brooke_1_CGATGTAT_L001_both_unaligned_rename.fq Brooke_1_CGATGTAT_L001_both_unaligned.results
 
 
-## Step 7 - Filter (at depth of 50) & Summarize DIs in tab-delimited table ##
+## Step 7 - Filter (at depth of 5) & Summarize DIs in tab-delimited table ##
 
 Program module: Perl (v. 5.24.1)
-Script: /home/groups/hpcbio_shared/cbrooke_lab/src/Brooke-DARPA/parse-recomb-results-50.pl
+Script: /home/groups/hpcbio_shared/cbrooke_lab/src/Brooke-DARPA/parse-recomb-results-5.pl
 
 Command Example: 
-	perl /home/groups/hpcbio_shared/cbrooke_lab/src/Brooke-DARPA/parse-recomb-results-50.pl \
+	perl /home/groups/hpcbio_shared/cbrooke_lab/src/Brooke-DARPA/parse-recomb-results-5.pl \
 	Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.txt \
-	Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.par50
+	Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.par5
