@@ -41,10 +41,10 @@ Command Example:
 
 Program Module: Bowtie2 (v. 2.3.2)
 
-Reference index (PR8): /home/groups/hpcbio_shared/cbrooke_lab/data/genome/bowtie2-2.3.2-index/modified_PR8
+Reference index (PR8): /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/data/genome/bowtie2-2.3.2-index/modified_PR8
 
 Command Example: 
-	bowtie2 -p 6 -x /home/groups/hpcbio_shared/data/genome/bowtie2-2.3.2-index/modified_PR8 \
+	bowtie2 -p 6 -x /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/data/genome/bowtie2-2.3.2-index/modified_PR8 \
 	-U Brooke_1_CGATGTAT_L001_both.fq --score-min L,0,-0.3 --al Brooke_1_CGATGTAT_L001_both_aligned.fq \
     --un Brooke_1_CGATGTAT_L001_both_unaligned.fq > Brooke_1_CGATGTAT_L001_both.sam
 
@@ -59,23 +59,23 @@ Command Example:
 ## Step 6 - Find DIs using ViReMa ##
 
 Program Modules: Bowtie (v. 1.2.0), Python (v. 2.7.13)
-Script: /home/groups/hpcbio_shared/cbrooke_lab/apps/ViReMa_0.6/ViReMa.py
+Script: /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/apps/ViReMa_0.6/ViReMa.py
 
-Reference Index (PR8, padded): /home/groups/hpcbio_shared/cbrooke_lab/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded
+Reference Index (PR8, padded): /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded
 
 Command Example: 
-	python /home/groups/hpcbio_shared/cbrooke_lab/apps/ViReMa_0.6/ViReMa.py --MicroInDel_Length 20 -DeDup \
+	python /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/apps/ViReMa_with_Fuzz/ViReMa.py --MicroInDel_Length 20 -DeDup \
 	--Defuzz 3 --N 0 --Output_Tag Brooke_1_CGATGTAT_L001_both_unaligned -ReadNamesEntry --p 6 \
-    /home/groups/hpcbio_shared/cbrooke_lab/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded \
-    $Brooke_1_CGATGTAT_L001_both_unaligned_rename.fq Brooke_1_CGATGTAT_L001_both_unaligned.results
+    /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded \
+    Brooke_1_CGATGTAT_L001_both_unaligned_rename.fq Brooke_1_CGATGTAT_L001_both_unaligned.results
 
 
 ## Step 7 - Filter (at depth of 5) & Summarize DIs in tab-delimited table ##
 
 Program module: Perl (v. 5.24.1)
-Script: /home/groups/hpcbio_shared/cbrooke_lab/src/Brooke-DARPA/parse-recomb-results-5.pl
+Script: /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/src/Brooke-DARPA/parse-recomb-results-Fuzz.pl
 
 Command Example: 
-	perl /home/groups/hpcbio_shared/cbrooke_lab/src/Brooke-DARPA/parse-recomb-results-5.pl \
-	Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.txt \
-	Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.par5
+	perl /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/src/Brooke-DARPA/parse-recomb-results-Fuzz.pl -d 5\
+	-i Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.txt \
+	-o Brooke_1_CGATGTAT_L001_both_unaligned_Virus_Recombination_Results.par5
