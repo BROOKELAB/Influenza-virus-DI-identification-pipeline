@@ -25,7 +25,7 @@ my $TAR = '/bin/tar';
 my $GZ = '/usr/bin/gzip';
 
 # TODO: allow alternative scripts?
-my $TAR_SCRIPT = "$FindBin::RealBin/split-tar.sh";
+my $TAR_SCRIPT = "/home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/src/Brooke-DARPA/split-tar.sh";
 
 # ownership and perms
 
@@ -33,13 +33,13 @@ my $TAR_SCRIPT = "$FindBin::RealBin/split-tar.sh";
 # sanity check. Also, this only uses the current user ID (which perl requires,
 # though we could simply fallback to system
 
-my $GRP = 'hpcbio';
-my $GID = getgrnam('hpcbio');
+my $GRP = 'hpcbio_cbrooke';
+my $GID = getgrnam('hpcbio_cbrooke');
 my $USER = $ENV{LOGNAME} || $ENV{USER} || getpwuid($<);
 my $UID = getpwnam($USER);
 
 # this is really meant to be called as a cluster job
-my $procs = $ENV{PBS_NUM_PPN} || 1;
+my $procs = $ENV{SLURM_CPUS_PER_TASK} || 1;
 
 my $USAGE = <<USAGE;
 
@@ -195,7 +195,7 @@ print_log($logfh, "4. Finished ownership/permissions changes on archive and logs
 #
 #for my $file ( ("$from.file-list.txt") ) {
 #    eval {
-#        $call = system("$GZ -9 -f -p $ENV{PBS_NUM_PPN} $file");
+#        $call = system("$GZ -9 -f -p $ENV{SLURM_CPUS_PER_TASK} $file");
 #    };
 #    if ($call != 0) {
 #        print_log_step($logfh, "Problem compressing $file: $!", $call);
