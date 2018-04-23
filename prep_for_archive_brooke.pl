@@ -22,7 +22,7 @@ my $TAR_SIZE = 2_000_000 * 1024;  # 2TB
 # EXE
 my $MD5SUM = '/usr/bin/md5sum';
 my $TAR = '/bin/tar';
-my $GZ = 'pigz';
+my $GZ = 'pigz'; #This is a module now (pigz/2.3.4-IGB-gcc-4.9.4)
 
 # TODO: allow alternative scripts?
 my $TAR_SCRIPT = "/home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/src/Brooke-DARPA/split-tar.sh";
