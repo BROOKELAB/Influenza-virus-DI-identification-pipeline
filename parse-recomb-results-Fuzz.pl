@@ -132,10 +132,10 @@ for $k (sort keys %mergehash){
                         $total = $revarr[0];
                         $fuzz = $revarr[1];
 			if($indel eq "D"){
-			print $outfh "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revarr[0]\t0\t$total\t$fuzz\n";
+			print $outfh "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revarr[0]\t$total\t$fuzz\n";
 			}
 			else{
-			print $outUK "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revarr[0]\t0\t$total\t$fuzz\n";
+			print $outUK "$arr[0]\t$arr[1]\t$arr[2]\t0\t$revarr[0]\t$total\t$fuzz\n";
 			}
 		}
 	}
