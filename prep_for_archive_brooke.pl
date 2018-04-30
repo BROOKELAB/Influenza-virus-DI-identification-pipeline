@@ -69,7 +69,7 @@ die $USAGE unless (
 );
 
 # sanity check
-for my $exe ( $TAR, $TAR_SCRIPT, $GZ, $MD5SUM ) {
+for my $exe ( $TAR, $TAR_SCRIPT, $MD5SUM ) { #Note, I removed $GZ since it's not a file
     die "Problem: Either can't find executable $exe" unless -e $exe;
     die "Problem: $exe isn't executable" unless -x $exe;
 }
