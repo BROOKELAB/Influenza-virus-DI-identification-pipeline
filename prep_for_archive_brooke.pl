@@ -25,7 +25,7 @@ my $TAR = '/bin/tar';
 my $GZ = 'pigz'; #This is a module now (pigz/2.3.4-IGB-gcc-4.9.4)
 
 # TODO: allow alternative scripts?
-my $TAR_SCRIPT = "/home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/src/Brooke-DARPA/split-tar.sh";
+my $TAR_SCRIPT = "/home/groups/hpcbio_shared/cbrooke_lab/Brooke-DARPA/split-tar.sh";
 
 # ownership and perms
 
