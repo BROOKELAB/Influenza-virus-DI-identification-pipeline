@@ -22,7 +22,7 @@ my $TAR_SIZE = 2_000_000 * 1024;  # 2TB
 # EXE
 my $MD5SUM = '/usr/bin/md5sum';
 my $TAR = '/bin/tar';
-my $GZ = 'pigz'; #This is a module now (pigz/2.3.4-IGB-gcc-4.9.4)
+my $GZ = '/usr/bin/gzip';
 
 # TODO: allow alternative scripts?
 my $TAR_SCRIPT = "/home/groups/hpcbio_shared/cbrooke_lab/Brooke-DARPA/split-tar.sh";
@@ -49,10 +49,10 @@ my $USAGE = <<USAGE;
 
     This takes an input directory, and
 
-      1l) changes group ownership,
+      l) changes group ownership,
       2) sets file permissions to 0660 and dir permissions to 2770
       3) tar's up the directory, splitting into 2TB chunks (saving a file list in the process)
-      4) runs pigz on the individual .tar files
+      4) runs gzip on the individual .tar files
       5) runs md5sum on all the *.tar.gz
 
     A fairly useless and overly verbose log file is also generated to keep tabs
@@ -69,7 +69,7 @@ die $USAGE unless (
 );
 
 # sanity check
-for my $exe ( $TAR, $TAR_SCRIPT, $MD5SUM ) { #Note, I removed $GZ since it's not a file
+for my $exe ( $TAR, $TAR_SCRIPT, $GZ, $MD5SUM ) {
     die "Problem: Either can't find executable $exe" unless -e $exe;
     die "Problem: $exe isn't executable" unless -x $exe;
 }
