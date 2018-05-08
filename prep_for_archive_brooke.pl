@@ -25,7 +25,7 @@ my $TAR = '/bin/tar';
 my $GZ = '/usr/bin/gzip';
 
 # TODO: allow alternative scripts?
-my $TAR_SCRIPT = "/home/groups/hpcbio_shared/cbrooke_lab/Brooke-DARPA/split-tar.sh";
+my $TAR_SCRIPT = "$FindBin::RealBin/split-tar.sh";
 
 # ownership and perms
 
