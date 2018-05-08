@@ -1,0 +1,5 @@
+*_STARgenome
+*_STARpass1
+*_STARtmp
+*/mismatch_corrector*
+*/work
