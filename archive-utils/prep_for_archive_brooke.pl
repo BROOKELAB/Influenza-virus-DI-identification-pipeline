@@ -22,7 +22,7 @@ my $TAR_SIZE = 2_000_000 * 1024;  # 2TB
 # EXE
 my $MD5SUM = '/usr/bin/md5sum';
 my $TAR = '/bin/tar';
-my $GZ = '/usr/bin/gzip';
+my $GZ = '/home/apps/software/pigz/2.3.4-IGB-gcc-4.9.4/bin/pigz';
 
 # TODO: allow alternative scripts?
 my $TAR_SCRIPT = "$FindBin::RealBin/split-tar.sh";
@@ -52,7 +52,7 @@ my $USAGE = <<USAGE;
       l) changes group ownership,
       2) sets file permissions to 0660 and dir permissions to 2770
       3) tar's up the directory, splitting into 2TB chunks (saving a file list in the process)
-      4) runs gzip on the individual .tar files
+      4) runs pigz on the individual .tar files
       5) runs md5sum on all the *.tar.gz
 
     A fairly useless and overly verbose log file is also generated to keep tabs
@@ -147,7 +147,7 @@ print_log($logfh, "2. Finished tarring directory");
 
 for my $file (File::Find::Rule->file->name(qr/^$from.*?tar(-[\d]+)?$/)->in(File::Basename::dirname($from))) {
     $call = 0;
-    my $cmd ="$GZ -9 -f $file";
+    my $cmd ="$GZ -9 -f -p $ENV{SLURM_CPUS_PER_TASK} $file";
     eval {
         $call = system( $cmd );
     };
