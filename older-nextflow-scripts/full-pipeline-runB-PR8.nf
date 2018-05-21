@@ -16,12 +16,12 @@ projectPath = "/home/groups/hpcbio_shared/cbrooke_lab"
 
 /* Paths to bowtie indices */
 bowtie2_index = "${projectPath}/data/genome/bowtie2-2.3.2-index/modified_PR8.fasta"
-bowtie_index = "${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded"
+virema_index = "${projectPath}/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded"
 
 viremaApp = "${projectPath}/apps/ViReMa_0.6"
 
 /* Path to raw fastq files */
-rawDataPath = "${projectPath}/data/raw-seq/5_samples"
+rawDataPath = "${projectPath}/data/raw-seq/45_samples"
 Channel
     .fromFilePairs("${rawDataPath}/*_R{1,2}_001.fastq", flat: true)
     .ifEmpty {error "Cannot find any reads matching: ${params.reads}"}
@@ -33,7 +33,7 @@ trimMemory = '15'
 trimCPU = '6'
 bowtie2Mem = '15'
 bowtie2CPU = '6'
-viremaMem = '15'
+viremaMem = '60'
 viremaCPU = '6'
 
 
@@ -59,10 +59,10 @@ defuzz = '3' /* If a start position is fuzzy, then its reported it at the 3' end
 mismatch = '0' /* This is the value of --N in ViReMa */
 
 /*Output paths*/
-trimPath = "${projectPath}/results/Nov2017-5samples/trimmomatic"
-fastqcPath = "${projectPath}/results/Nov2017-5samples/fastqc_trim"
-alignPath = "${projectPath}/results/Nov2017-5samples/bowtie2"
-viremaPath = "${projectPath}/results/Nov2017-5samples/virema"
+trimPath = "${projectPath}/results/Dec2017-runB/trimmomatic"
+fastqcPath = "${projectPath}/results/Dec2017-runB/fastqc_trim"
+alignPath = "${projectPath}/results/Dec2017-runB/bowtie2"
+viremaPath = "${projectPath}/results/Dec2017-runB/virema"
 
 
 /*
