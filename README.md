@@ -24,20 +24,20 @@ DEPENDENCIES
 
 This program expects the following tools/languages to be installed as modules and be available in your path:
 
-- Nextflow tested with version 0.27.3 ( download page https://github.com/nextflow-io/nextflow/releases?after=v0.29.0-RC1 )
+- Nextflow    tested with version 0.27.3 ( download page https://github.com/nextflow-io/nextflow/releases?after=v0.29.0-RC1 )
 - Trimmomatic tested with version 0.36 ( download page https://github.com/timflutre/trimmomatic)
-- FastQC  tested with version 0.11.5  ( download page https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-- Bowtie2  tested with 2.3.2 ( download page  http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
-- Bowtie   tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml)
-- Python  tested with versiob 2.7.13 ( download page https://www.python.org/downloads/)
-- Perl    tested with 5.24.1  ( download page https://www.perl.org/ )
-
+- FastQC      tested with version 0.11.5  ( download page https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- Bowtie2     tested with 2.3.2 ( download page  http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
+- Bowtie      tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml)
+- Python      tested with version 2.7.13 ( download page https://www.python.org/downloads/)
+- Perl        tested with version 5.24.1  ( download page https://www.perl.org/ )
+- ViReMa      tested with ViReMa-with-fuzz aka version 10 ( download page https://sourceforge.net/projects/virema/files/ )
 
 
 INSTALLATION INSTRUCTIONS
 ------------------------------
 - Install all dependencies first. You may need to have root access to install some of these tools/languages on a cluster.
-- Do not forget to aunch the 'hello world' nextflow pipeline (as per https://www.nextflow.io/) to make sure it works fine.
+- Do not forget to launch the 'hello world' nextflow pipeline (as per https://www.nextflow.io/) to make sure it works fine.
 - Make a copy of this repo
 
 
