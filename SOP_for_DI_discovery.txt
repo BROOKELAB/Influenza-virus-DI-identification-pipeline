@@ -1,5 +1,5 @@
 ### Standard Operating Procedure for DI discovery ###
-  # Written by - Jessica Holmes (12-4-2017)
+  # Last updated by - Jessica Holmes (10-9-2018)
 
 
 ## Step 1 - Quality check the raw FASTQ data ##
@@ -59,7 +59,7 @@ Command Example:
 ## Step 6 - Find DIs using ViReMa ##
 
 Program Modules: Bowtie (v. 1.2.0), Python (v. 2.7.13)
-Script: /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/apps/ViReMa_0.6/ViReMa.py
+Script: /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/apps/ViReMa_with_Fuzz/ViReMa.py
 
 Reference Index (PR8, padded): /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded
 
