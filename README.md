@@ -31,7 +31,7 @@ This program expects the following tools/languages to be installed as modules an
 - Bowtie      tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml)
 - Python      tested with version 2.7.13 ( download page https://www.python.org/downloads/)
 - Perl        tested with version 5.24.1  ( download page https://www.perl.org/ )
-- ViReMa      tested with ViReMa-with-fuzz aka version 10 ( download page https://sourceforge.net/projects/virema/files/ )
+- ViReMa      tested with ViReMa-with-fuzz ( included in this repo )
 
 
 INSTALLATION INSTRUCTIONS
@@ -50,6 +50,12 @@ Each genome needs TWO indices, one for Bowtie and one for Bowtie2
 
 RUNNING THE PROGRAM
 ------------------------------
+This pipeline expects each sample to be made up of paired reads of viral RNA.
+The sample(s) to be analyzed by this pipeline must be placed together in the same folder.
+Prepare a configuration file. Some examples of configuration files are provided in the folder customizable-pipeline-config-files
+
+To run the pipeline type this command: <i> nextflow -c config.file full-pipeline-customizable-v2.nf </i>
+
 
 
 OUTPUTS EXPLAINED
