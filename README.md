@@ -73,3 +73,20 @@ The actual results are placed in these folders:
 
 DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
 ------------------------------
+
+If a file with variable read support cutoff values is available, then compute the summary matrix for two or more samples together using the program <i> CreateMatrix_DI_VarDepth.pl</i>. 
+
+- Create a folder
+- For each sample that you want to compare copy the <i>*.par</i> file to this folder
+- Run the program with this command: 
+
+  <i>perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -v cutoff.txt </i>
+
+
+If a file with variable read support cutoff values is NOT available, then compute the summary matrix for two or more samples together using the program <i> CreateMatrix_DI.pl</i>.  Use the parameter <i> -m int </i> to specify a fixed value of read support cutoff
+
+- Create a folder
+- For each sample that you want to compare copy the <i>*.par</i> file to this folder
+- Run the program with this command: 
+
+  <i>perl  CreateMatrix_DI.pl -d outputdir -o outputfile.tsv -f 1 -m 5 </i>
