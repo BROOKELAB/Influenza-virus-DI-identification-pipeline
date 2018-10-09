@@ -65,7 +65,7 @@ Reference Index (PR8, padded): /home/groups/hpcbio_shared/cbrooke_lab/DARPA-proj
 
 Command Example: 
 	python /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/apps/ViReMa_with_Fuzz/ViReMa.py --MicroInDel_Length 20 -DeDup \
-	--Defuzz 3 --N 0 --Output_Tag Brooke_1_CGATGTAT_L001_both_unaligned -ReadNamesEntry --p 6 \
+	--Defuzz 3 --N 1 --X 8 --Output_Tag Brooke_1_CGATGTAT_L001_both_unaligned -ReadNamesEntry --p 6 \
     /home/groups/hpcbio_shared/cbrooke_lab/DARPA-project/data/genome/bowtie-1.2.0-index/modified_PR8_ref_padded \
     Brooke_1_CGATGTAT_L001_both_unaligned_rename.fq Brooke_1_CGATGTAT_L001_both_unaligned.results
 
