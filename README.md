@@ -58,8 +58,17 @@ To run the pipeline type this command: <i> nextflow -c config.file full-pipeline
 
 
 
-OUTPUTS EXPLAINED
+OUTPUTS
 ------------------------------
+
+Nextflow generates two folders to keep track of execution progress. You can delete them once the execution ends successfully. They are called <i>.nextflow/ </i> and <i>work/ </i>
+
+The actual results are placed in these folders: 
+- <b>trimmomatic/</b>  contains the results of QC, filter and trim of the raw reads with Trimmomatic
+- <b>fastqc_trim/</b>  contains the results of FastQC on the trimmed reads
+- <b>bowtie2/</b>      contains the results of aligning the trimmed reads to the genome with Bowtie2
+- <b>virema/</b>       contains the results of running ViReMa on the unaligned reads to detect DIP-associated deletion junctions. Each sample will have several files with intermediary and final results. The final results are the files ending in <i> *.par </i>  <i> *.par5 </i> or <i> *par.50 </i>
+
 
 
 DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
