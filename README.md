@@ -73,20 +73,18 @@ The actual results are placed in these folders:
 
 DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
 ------------------------------
-
-If a file with variable read support cutoff values is available, then compute the summary matrix for two or more samples together using the program <i> CreateMatrix_DI_VarDepth.pl</i>. 
+If you want to compare the DIP results of two or more samples together on a per-segment level, then follow these steps to generate a comparison matrix
 
 - Create a folder
 - For each sample that you want to compare copy the <i>*.par</i> file to this folder
-- Run the program with this command: 
+- Run the analysis with this command: 
 
   <i>perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -v cutoff.txt </i>
 
+Where <i> cutoff.txt </i> is a file with variable read support cutoff values.
 
-If a file with variable read support cutoff values is NOT available, then compute the summary matrix for two or more samples together using the program <i> CreateMatrix_DI.pl</i>.  Use the parameter <i> -m int </i> to specify a fixed value of read support cutoff
+If this file is NOT available, then run the analysis with this command: 
 
-- Create a folder
-- For each sample that you want to compare copy the <i>*.par</i> file to this folder
-- Run the program with this command: 
-
-  <i>perl  CreateMatrix_DI.pl -d outputdir -o outputfile.tsv -f 1 -m 5 </i>
+  <i>perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -m 5 </i>
+  
+Where <i> -m 5 </i> is a fixed read support value of 5
