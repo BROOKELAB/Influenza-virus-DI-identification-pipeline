@@ -6,8 +6,6 @@ Repo for Chris Brooke's DARPA project
 ![Alt text](docs/workflow.jpg?raw=true "Workflow")
 
 
-
-
 # DEPENDENCIES
 
 
@@ -38,20 +36,31 @@ curl -fsSL get.nextflow.io | bash
 
 # Add Nextflow binary to your PATH:
 mv nextflow ~/bin
-# OR system-wide installation:
+
+# OR make a system-wide installation (root user)
 sudo mv nextflow /usr/local/bin
+
 </pre>
 
 - Do not forget to launch the 'hello world' nextflow pipeline (as per https://www.nextflow.io/) to make sure it works fine.
-- Install this pipeline: The pipeline itself does not need installation. Simply copy this repo to a local folder and nextflow showld be able to run it
+- Install this pipeline: The pipeline itself does not need installation. Simply copy this repo to a local folder and nextflow should be able to run it
 
 
 # INDEXING THE GENOME(S)
 
 Each genome needs TWO indices, one for Bowtie and one for Bowtie2
 
-- Run this command to index the genome for Bowtie: <i>bowtie-build genome.fasta genome </i>
-- Run this command to index the genome for Bowtie2: <i>bowtie2-build genome.fasta genome </i>
+- Run this command to index the genome for Bowtie: 
+
+<pre>
+bowtie-build genome.fasta genome
+</pre>
+
+- Run this command to index the genome for Bowtie2:
+
+<pre>
+bowtie2-build genome.fasta genome
+</pre>
 
 # RUNNING THE PROGRAM
 
@@ -62,9 +71,7 @@ Prepare a configuration file. Some examples of configuration files are provided 
 To run the pipeline type this command: 
 
 <pre>
- 
- nextflow -c config.file full-pipeline-customizable-v2.nf
- 
+nextflow -c config.file full-pipeline-customizable-v2.nf
 </pre>
 
 
@@ -91,9 +98,7 @@ If you want to compare the DIP results of two or more samples together on a per-
 - Run the analysis with this command: 
 
 <pre>
-
 perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -v cutoff.txt
-
 </pre>
 
 
@@ -102,9 +107,7 @@ Where <i> cutoff.txt </i> is a file with variable read support cutoff values.
 If this cutoff file is NOT available, then run the analysis with this command: 
 
 <pre>
-
 perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -m 5
-
 </pre>
   
 Where <i> -m 5 </i> is a fixed read support value of 5
