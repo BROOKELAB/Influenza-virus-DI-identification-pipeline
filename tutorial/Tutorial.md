@@ -74,7 +74,7 @@ Please follow this link: ![Installation Instructions](../README.md)
 
 ![Alt text](../docs/benchmarks.jpg?raw=true "Benchmarks")
 
-Our benchmarks with synthetic and real datasets show that these values increase accuracy of the pipeline
+Our benchmarks with synthetic and real datasets show that these values for bowtie2 and ViReMa increase accuracy of the pipeline
 
 <pre>
 bowtie2  --score-min  'L,0,-0.3' 
