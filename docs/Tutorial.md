@@ -1,10 +1,10 @@
-# Introduction
-The mechanisms and consequences of defective interfering particle (DIP) formation during influenza A virus (IAV) infection remain poorly understood. The development of next generation sequencing (NGS) technologies have made it possible to identify large numbers of DIP-associated sequences, providing a powerful tool to better understand their biological relevance. 
+# WORKFLOW OF THE PIPELINE
 
-However, NGS approaches pose numerous technical challenges, including the precise identification and mapping of deletion junctions in the presence of frequent mutation and base-calling errors, and the potential for numerous experimental and computational artifacts. 
+![Alt text](docs/workflow.jpg?raw=true "Workflow")
 
-We developed an Illumina-based sequencing framework and bioinformatics pipeline capable of generating highly accurate and reproducible profiles of DIP-associated junction sequences.  This tutorial will illustrate the use of this framework with real data. The first part will focus on DIP detection and the second part will focus on DIP-junction comparison.
-
+The first steps are done manually: Sample collection, fluidigm library preparation and sequencing in an Illumina platform.
+The nextflow pipeline performs steps three thorugh five and generates DIPs.
+Finally, the comparative analysis can be performed with programs provided here
 
 # Sample preparation and sequencing
 
