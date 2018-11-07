@@ -10,6 +10,7 @@ Finally, the comparative analysis can be performed with programs provided here
 
 ![Alt text](../docs/IAV_sample_prep.jpg?raw=true "SamplePreparation")
 
+
 ## download these fastq files from our page
 
 The files with paired reads in fastq format are available for download from:
@@ -66,10 +67,28 @@ bowtie-build modified_PR8_ref_padded.fasta bowtie-1.2.0-index/modified_PR8_ref_p
 
 Please follow this link: ![Installation Instructions](../README.md)
 
+## Configure some parameters
 
-## Prepare a configuration file for the run.
+Bowtie2 alignment parameters can be tweaked to increase alignment accuracy.
+ViReMa parameters can be tweaked to increase DIP detection accuracy.
 
-Add a link to the config.file
+![Alt text](../docs/benchmarks.jpg?raw=true "Benchmarks")
+
+Our benchmarks with synthetic and real datasets show that these values increase accuracy of the pipeline
+
+bowtie2  --score-min  'L,0,-0.3' 
+ViReMa --MicroInDel 20
+ViReMa --N  1
+ViReMa --X  8
+ViReMa --defuzz 3
+
+
+Create a configuration file where you can specify paths to input and output folders, cluster resources, and parameter values.
+One such configuration file is provided here: ![runE-Cal07-setup3.conf](conf/runE-Cal07-setup3.conf)
+
+
+
+
 
 
 
