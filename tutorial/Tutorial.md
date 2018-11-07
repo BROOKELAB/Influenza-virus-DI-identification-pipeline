@@ -138,6 +138,26 @@ Additional information that can also be specified inside the configuration file 
 
 It is important to put in the same input folder all fastq files that are going to be analyzed together by the same pipeline and with the same parameters. 
 
+To run the pipeline type these commands:
+
+<pre>
+
+# load the Nextflow module
+
+module load Nextflow
+
+# run the pipeline
+
+nextflow run    -c  conf/runE-Cal07-setup3.conf    full-pipeline-customizable-v2.nf
+
+</pre>
+
+## Examine the results
+
+You should see FOUR folders with results as shown here
+
+
+
 
 
 
