@@ -13,8 +13,12 @@ Finally, the comparative analysis can be performed with programs provided here
 
 ## download these fastq files from our page
 
-The files with paired reads in fastq format are available for download from:
-(some-data-hosting-place/testdata/raw-seq)
+Our fastq files are paired-ended reads. These files have been demultiplexed and sorted by primer.
+
+- Total paired reads in 6E: 505,962  Read length between 35-250
+- Total paired read in 11E: 434,035  Read length between 35-250
+
+They are available for download from:  (some-data-hosting-place/testdata/raw-seq)
 
 ## or DIY: 
 
@@ -69,14 +73,16 @@ Please follow this link: ![Installation Instructions](../README.md)
 
 ## Configure some parameters
 
+- Trimmomatic trimming parameters can be adjusted to work with your own datasets.
 - Bowtie2 alignment parameters can be tweaked to increase alignment accuracy.
 - ViReMa parameters can be tweaked to increase DIP detection accuracy.
 
 ![Alt text](../docs/benchmarks.jpg?raw=true "Benchmarks")
 
-Our benchmarks with synthetic and real datasets show that these values for bowtie2 and ViReMa increase accuracy of the pipeline
+Our benchmarks with synthetic and real datasets show that these values work well for Trimmomatic, bowtie2 and ViReMa
 
 <pre>
+Trimmomatic 'ILLUMINACLIP:$TRIMMOMATICPATH/adapters/TruSeq3-PE-2.fa:2:15:10 SLIDINGWINDOW:3:20 LEADING:28 TRAILING:28 MINLEN:75'
 bowtie2  --score-min  'L,0,-0.3' 
 ViReMa --MicroInDel 20
 ViReMa --N  1
@@ -85,7 +91,10 @@ ViReMa --defuzz 3
 </pre>
 
 Create a configuration file where you can specify paths to input and output folders, cluster resources, and parameter values.
-One such configuration file is provided here: ![runE-Cal07-setup3.conf](conf/runE-Cal07-setup3.conf)
+One such configuration file is provided here: ![runE-Cal07-setup3.conf](conf/runE-Cal07-setup3.conf).
+
+It is important to put in the same input folder all fastq files that are going to be analyzed together by the same pipeline and with the same parameters. 
+
 
 
 
