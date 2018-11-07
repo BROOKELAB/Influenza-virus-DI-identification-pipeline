@@ -20,6 +20,24 @@ Our fastq files are paired-ended reads. These files have been demultiplexed and 
 
 They are available for download from:  (some-data-hosting-place/testdata/raw-seq)
 
+Create a folder called *data/raw-seq* and copy these fastq files to that folder
+
+<pre>
+
+# create a new folder for these input files
+
+mkdir -p data/raw-seq/runE-Cal07
+
+# go to that folder
+
+cd data/raw-seq/runE-Cal07
+
+# download the files
+
+wget some-data-hosting-place/testdata/raw-seq/* 
+
+</pre>
+
 ## or DIY: 
 
 Sample 6E: Details will be provided by Fadi
@@ -32,6 +50,24 @@ Sample 11E: Details will be provided by Fadi
 
 The flu genomes in fasta format and the corresponding index files are available for download from:
 (some-data-hosting-place/testdata/genomes)
+
+Create a folder called *data/genomes* and copy all files files to that folder
+
+<pre>
+
+# create a new folder called genomes inside the folder data
+mkdir -p data/genomes
+
+# go to that folder
+
+cd data/genomes
+
+# download the files
+
+wget some-data-hosting-place/testdata/genomes/*
+
+</pre>
+
 
 ## or DIY:
 
