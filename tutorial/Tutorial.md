@@ -69,19 +69,20 @@ Please follow this link: ![Installation Instructions](../README.md)
 
 ## Configure some parameters
 
-Bowtie2 alignment parameters can be tweaked to increase alignment accuracy.
-ViReMa parameters can be tweaked to increase DIP detection accuracy.
+- Bowtie2 alignment parameters can be tweaked to increase alignment accuracy.
+- ViReMa parameters can be tweaked to increase DIP detection accuracy.
 
 ![Alt text](../docs/benchmarks.jpg?raw=true "Benchmarks")
 
 Our benchmarks with synthetic and real datasets show that these values increase accuracy of the pipeline
 
+<pre>
 bowtie2  --score-min  'L,0,-0.3' 
 ViReMa --MicroInDel 20
 ViReMa --N  1
 ViReMa --X  8
 ViReMa --defuzz 3
-
+</pre>
 
 Create a configuration file where you can specify paths to input and output folders, cluster resources, and parameter values.
 One such configuration file is provided here: ![runE-Cal07-setup3.conf](conf/runE-Cal07-setup3.conf)
