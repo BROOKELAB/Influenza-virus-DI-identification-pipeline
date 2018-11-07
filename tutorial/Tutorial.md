@@ -116,7 +116,7 @@ Please follow this link: ![Installation Instructions](../README.md)
 ![Alt text](../docs/benchmarks.jpg?raw=true "Benchmarks")
 
 The results of our benchmarks with synthetic and real datasets are shown above 
-and demonstrate that the floowing values work well for Trimmomatic, bowtie2 and ViReMa:
+and demonstrate that the following values work well for Trimmomatic, bowtie2 and ViReMa:
 
 <pre>
 Trimmomatic 'ILLUMINACLIP:$TRIMMOMATICPATH/adapters/TruSeq3-PE-2.fa:2:15:10 SLIDINGWINDOW:3:20 LEADING:28 TRAILING:28 MINLEN:75'
@@ -130,7 +130,13 @@ ViReMa --defuzz 3
 However, you do not have to take our word for it. Simply change the values in the configuration file.
 One such configuration file is provided here: ![runE-Cal07-setup3.conf](conf/runE-Cal07-setup3.conf).
 
-Additional information that can also be specified inside the configuration file rather than at the command line include paths to input and output folders, cluster resources, and so on. It is important to put in the same input folder all fastq files that are going to be analyzed together by the same pipeline and with the same parameters. 
+Additional information that can also be specified inside the configuration file rather than at the command line include 
+
+- input and output folders
+- path to reference genome
+- cluster resources such as memory and CPUs
+
+It is important to put in the same input folder all fastq files that are going to be analyzed together by the same pipeline and with the same parameters. 
 
 
 
