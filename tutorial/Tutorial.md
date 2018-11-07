@@ -8,7 +8,7 @@ Finally, the comparative analysis can be performed with programs provided here
 
 # Sample collection, fluidigm library preparation and sequencing
 
-Control sample: Details will be provided by Fadi
+![Alt text](../docs/IAV_sample_prep.jpg?raw=true "SamplePreparation")
 
 Sample 6E: Details will be provided by Fadi
 
