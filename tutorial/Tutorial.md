@@ -18,7 +18,7 @@ Our fastq files are paired-ended reads. These files have been demultiplexed and 
 - Total paired reads in 6E: 505,962  Read length between 35-250
 - Total paired read in 11E: 434,035  Read length between 35-250
 
-They are available for download from:  (some-data-hosting-place/testdata/raw-seq)
+They are FOUR files in total and are available for download from:  (some-data-hosting-place/testdata/raw-seq)
 
 Create a folder called *data/raw-seq* and copy these fastq files to that folder
 
@@ -67,6 +67,10 @@ cd data/genomes
 wget some-data-hosting-place/testdata/genomes/*
 
 </pre>
+
+Your genomes folder should now look like this: 
+
+![Alt text](../docs/folder_structure_genome.jpg?raw=true "Folder Genomes")
 
 
 ## or DIY:
@@ -155,6 +159,8 @@ nextflow run    -c  conf/runE-Cal07-setup3.conf    full-pipeline-customizable-v2
 ## Examine the results
 
 You should see FOUR folders with results as shown here
+
+![Alt text](../docs/folder_structure_results.jpg?raw=true "Folder Results")
 
 
 
