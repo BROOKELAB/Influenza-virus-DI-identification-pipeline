@@ -1,16 +1,14 @@
 # Influenza-virus-DI-identification-pipeline
 Repo for Chris Brooke's DARPA project
 
-#DESCRIPTION
-
-
+# DESCRIPTION
 
 ![Alt text](docs/workflow.jpg?raw=true "Workflow")
 
 
 
 
-#DEPENDENCIES
+# DEPENDENCIES
 
 
 This program expects the following tools/languages to be installed as modules and be available in your path:
@@ -25,35 +23,58 @@ This program expects the following tools/languages to be installed as modules an
 - ViReMa      tested with ViReMa-with-fuzz ( included in this repo )
 
 
-#INSTALLATION INSTRUCTIONS
+# INSTALLATION INSTRUCTIONS
 
 - Install all dependencies first. You may need to have root access to install some of these tools/languages on a cluster.
+- Install NextFlow by running the following commands:
+
+<pre>
+
+# Make sure that Java v7+ is installed:
+java -version
+
+# Install Nextflow
+curl -fsSL get.nextflow.io | bash
+
+# Add Nextflow binary to your PATH:
+mv nextflow ~/bin
+# OR system-wide installation:
+sudo mv nextflow /usr/local/bin
+</pre>
+
 - Do not forget to launch the 'hello world' nextflow pipeline (as per https://www.nextflow.io/) to make sure it works fine.
-- Make a copy of this repo
+- Install this pipeline: The pipeline itself does not need installation. Simply copy this repo to a local folder and nextflow showld be able to run it
 
 
-#INDEXING THE GENOME(S)
+# INDEXING THE GENOME(S)
 
 Each genome needs TWO indices, one for Bowtie and one for Bowtie2
 
 - Run this command to index the genome for Bowtie: <i>bowtie-build genome.fasta genome </i>
 - Run this command to index the genome for Bowtie2: <i>bowtie2-build genome.fasta genome </i>
 
-#RUNNING THE PROGRAM
+# RUNNING THE PROGRAM
 
 This pipeline expects each sample to be made up of paired reads of viral RNA.
 The sample(s) to be analyzed by this pipeline must be placed together in the same folder.
 Prepare a configuration file. Some examples of configuration files are provided in the folder customizable-pipeline-config-files
 
-To run the pipeline type this command: <i> nextflow -c config.file full-pipeline-customizable-v2.nf </i>
+To run the pipeline type this command: 
+
+<pre>
+ 
+ nextflow -c config.file full-pipeline-customizable-v2.nf
+ 
+</pre>
 
 
 
-#OUTPUTS
+# OUTPUTS
 
 Nextflow generates two folders to keep track of execution progress. You can delete them once the execution ends successfully. They are called <i>.nextflow/ </i> and <i>work/ </i>
 
-The actual results are placed in these folders: 
+The actual results of the pipeline are placed in these folders:
+
 - <b>trimmomatic/</b>  contains the results of QC, filter and trim of the raw reads with Trimmomatic
 - <b>fastqc_trim/</b>  contains the results of FastQC on the trimmed reads
 - <b>bowtie2/</b>      contains the results of aligning the trimmed reads to the genome with Bowtie2
@@ -61,7 +82,7 @@ The actual results are placed in these folders:
 
 
 
-#DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
+# DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
 
 If you want to compare the DIP results of two or more samples together on a per-segment level, then follow these steps to generate a comparison matrix
 
@@ -69,17 +90,26 @@ If you want to compare the DIP results of two or more samples together on a per-
 - For each sample that you want to compare copy the <i>*.par</i> file to this folder
 - Run the analysis with this command: 
 
-  <i>perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -v cutoff.txt </i>
+<pre>
+
+perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -v cutoff.txt
+
+</pre>
+
 
 Where <i> cutoff.txt </i> is a file with variable read support cutoff values.
 
-If this file is NOT available, then run the analysis with this command: 
+If this cutoff file is NOT available, then run the analysis with this command: 
 
-  <i>perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -m 5 </i>
+<pre>
+
+perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -m 5
+
+</pre>
   
 Where <i> -m 5 </i> is a fixed read support value of 5
 
-#LICENSE
+# LICENSE
 
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -88,7 +118,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-#CITATIONS
+# CITATIONS
 
 
 
