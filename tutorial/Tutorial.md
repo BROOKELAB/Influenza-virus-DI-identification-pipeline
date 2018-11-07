@@ -10,15 +10,16 @@ Finally, the comparative analysis can be performed with programs provided here
 
 ![Alt text](../docs/IAV_sample_prep.jpg?raw=true "SamplePreparation")
 
-Sample 6E: Details will be provided by Fadi
-
-Sample 11E: Details will be provided by Fadi
-
 ## download these fastq files from our page
 
 The files with paired reads in fastq format are available for download from:
 (some-data-hosting-place/testdata/raw-seq)
 
+## or DIY: 
+
+Sample 6E: Details will be provided by Fadi
+
+Sample 11E: Details will be provided by Fadi
 
 # Genome preparation
 
@@ -27,7 +28,7 @@ The files with paired reads in fastq format are available for download from:
 The flu genomes in fasta format and the corresponding index files are available for download from:
 (some-data-hosting-place/testdata/genomes)
 
-## If you want to DIY:
+## or DIY:
 
 - get the fasta files of the flu genomes
 
@@ -63,7 +64,7 @@ bowtie-build modified_PR8_ref_padded.fasta bowtie-1.2.0-index/modified_PR8_ref_p
 
 ## Installation instructions: 
 
-Please follow this link: [Installation instructions](#INSTALLATION INSTRUCTIONS)
+Please follow this link: ![Installation Instructions](../README.md)
 
 
 ## Prepare a configuration file for the run.
