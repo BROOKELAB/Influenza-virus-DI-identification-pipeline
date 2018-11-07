@@ -1,26 +1,17 @@
 # Influenza-virus-DI-identification-pipeline
 Repo for Chris Brooke's DARPA project
 
-DESCRIPTION
-------------------------------
-
-
-LICENSE
-------------------------------
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>
-
-CITATIONS
-------------------------------
+#DESCRIPTION
 
 
 
-DEPENDENCIES
-------------------------------
+![Alt text](docs/workflow.jpg?raw=true "Workflow")
+
+
+
+
+#DEPENDENCIES
+
 
 This program expects the following tools/languages to be installed as modules and be available in your path:
 
@@ -34,22 +25,22 @@ This program expects the following tools/languages to be installed as modules an
 - ViReMa      tested with ViReMa-with-fuzz ( included in this repo )
 
 
-INSTALLATION INSTRUCTIONS
-------------------------------
+#INSTALLATION INSTRUCTIONS
+
 - Install all dependencies first. You may need to have root access to install some of these tools/languages on a cluster.
 - Do not forget to launch the 'hello world' nextflow pipeline (as per https://www.nextflow.io/) to make sure it works fine.
 - Make a copy of this repo
 
 
-INDEXING THE GENOME(S)
-------------------------------
+#INDEXING THE GENOME(S)
+
 Each genome needs TWO indices, one for Bowtie and one for Bowtie2
 
 - Run this command to index the genome for Bowtie: <i>bowtie-build genome.fasta genome </i>
 - Run this command to index the genome for Bowtie2: <i>bowtie2-build genome.fasta genome </i>
 
-RUNNING THE PROGRAM
-------------------------------
+#RUNNING THE PROGRAM
+
 This pipeline expects each sample to be made up of paired reads of viral RNA.
 The sample(s) to be analyzed by this pipeline must be placed together in the same folder.
 Prepare a configuration file. Some examples of configuration files are provided in the folder customizable-pipeline-config-files
@@ -58,8 +49,7 @@ To run the pipeline type this command: <i> nextflow -c config.file full-pipeline
 
 
 
-OUTPUTS
-------------------------------
+#OUTPUTS
 
 Nextflow generates two folders to keep track of execution progress. You can delete them once the execution ends successfully. They are called <i>.nextflow/ </i> and <i>work/ </i>
 
@@ -71,8 +61,8 @@ The actual results are placed in these folders:
 
 
 
-DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
-------------------------------
+#DOWNSTREAM ANALYSIS: COMPUTE SUMMARY MATRIX
+
 If you want to compare the DIP results of two or more samples together on a per-segment level, then follow these steps to generate a comparison matrix
 
 - Create a folder
@@ -88,3 +78,17 @@ If this file is NOT available, then run the analysis with this command:
   <i>perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -m 5 </i>
   
 Where <i> -m 5 </i> is a fixed read support value of 5
+
+#LICENSE
+
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+#CITATIONS
+
+
+
