@@ -24,14 +24,6 @@ Create a folder called *data/raw-seq* and copy these fastq files to that folder
 
 <pre>
 
-# create a folder for this project
-
-mkdir full-path-to-some-folder
-
-# and then go there
-
-cd full-path-to-some-folder
-
 # create a new folder for these input files
 
 mkdir -p data/raw-seq/runE-Cal07
