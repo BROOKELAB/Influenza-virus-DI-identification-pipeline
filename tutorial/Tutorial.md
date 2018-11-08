@@ -164,19 +164,34 @@ You should see FOUR folders with results as shown here
 
 - *trimmomatic* contains the QC and trimming step with Trimmomatic
 
+Trimmomatic output files are explained here: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf Page 4
+
 ![Alt text](../docs/folder_structure_results_trimmomatic.jpg)
 
 - *fastqc_trim* contains the FastQC results on the trimmed files
 
 ![Alt text](../docs/folder_structure_results_fastqc_trim.jpg)
 
+FastQC output files are explained here: https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf
+
 - *bowtie2* contains the results of the alignment step with bowtie2
 
 ![Alt text](../docs/folder_structure_results_bowtie2.jpg)
 
+Bowtie2 output files are explained here: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
+
 - *virema* contains the results of the DIP detection step with ViReMa
 
 ![Alt text](../docs/folder_structure_results_virema.jpg)
+
+ViReMa output files are explained here: https://sourceforge.net/projects/virema/files/
+
+## Read Tracking: How many reads survived each analysis step?
+
+- For the trimming and alignment steps we totaled the number of reads of the fastq files that these tools generated
+- For the DIP detection step we totaled the number of events reported in each one of the output files with extension *.txt*
+
+![Alt text](../docs/readTracking.jpg)
 
 
 ## compare your results to ours
