@@ -162,14 +162,34 @@ You should see FOUR folders with results as shown here
 
 ![Alt text](../docs/folder_structure_results.jpg?raw=true "Folder Results")
 
+- *trimmomatic* contains the QC and trimming step with Trimmomatic
+
+![Alt text](../docs/folder_structure_results_trimmomatic.jpg)
+
+- *fastqc_trim* contains the FastQC results on the trimmed files
+
+![Alt text](../docs/folder_structure_results_fastqc_trim.jpg)
+
+- *bowtie2* contains the results of the alignment step with bowtie2
+
+![Alt text](../docs/folder_structure_results_bowtie2.jpg)
+
+- *virema* contains the results of the DIP detection step with ViReMa
+
+![Alt text](../docs/folder_structure_results_virema.jpg)
 
 
+## compare your results to ours
 
+Simply download the results folder
 
+<pre>
 
+# download the files
 
+wget some-data-hosting-place/results/*
 
-
+</pre>
 
 
 
