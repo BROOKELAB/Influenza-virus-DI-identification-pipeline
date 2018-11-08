@@ -193,8 +193,86 @@ ViReMa output files are explained here: https://sourceforge.net/projects/virema/
 
 ![Alt text](../docs/readTracking.jpg)
 
+## Output files 
 
-## compare your results to ours
+The output files are also found in the *virema* folder. They have extension <i>Recombination_Results.par*</i> and 
+are produced by running the script parse-recomb-results-Fuzz.pl on this ViReMa file <i>Recombination_Results.txt</i>
+
+<pre>
+perl parse-recomb-results-Fuzz.pl -i $in_file -o ${in_file}.par  -d 1
+perl parse-recomb-results-Fuzz.pl -i $in_file -o ${in_file}.par5 -d 5
+</pre>
+
+Let's take a peek inside one of those files: 
+
+<pre>
+
+$ head 6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.par
+
+Segment Start   Stop    Forward_support Reverse_support Total_support   Fuzz_factor
+CY1216804       100     1431    1       0       1       1
+CY1216804       100     1461    1       0       1       0
+CY1216804       1024    1732    0       2       2       6
+CY1216804       102     1526    1       0       1       1
+CY1216804       103     1533    23      3       26      1
+CY1216804       105     1479    1       0       1       0
+CY1216804       105     1518    1       0       1       0
+CY1216804       105     1533    15      3       18      0
+CY1216804       105     1547    77      6       83      0
+
+</pre>
+
+# Comparing the DIP profiles of two or more samples
+
+
+<pre>
+# create a folder for this analysis
+
+mkdir comp_6E_11E
+cd comp_6E_11E
+
+# populate the folder with the files that will be compared
+
+ln -s ../virema/6_*.par5 ./
+ln -s ../virema/11_*.par5 ./
+
+# check that you have these input files with the ls command
+
+ls
+
+11_ATGTAAGT-ACTCTATG_L001both_unaligned_Virus_Recombination_Results.par5
+6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.par5
+
+# run the script
+
+perl CreateMatrix_DIpar5.pl -d ./ -o 6E_vs_11E-CompMatrix-w-par5.tsv -f 1 -m 5
+
+# check again. The output file is 6E_vs_11E-CompMatrix-w-par5.tsv
+
+ls
+
+11_ATGTAAGT-ACTCTATG_L001both_unaligned_Virus_Recombination_Results.par5
+6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.par5
+6E_vs_11E-CompMatrix-w-par5.tsv
+
+# let's take a peek
+
+head 6E_vs_11E-CompMatrix-w-par5.tsv
+
+DIs     11_ATGTAAGT-ACTCTATG_1  6_TTGGACTC-GGAAGCAG_2
+CY1216804_103_1533      22      28
+CY1216804_105_1533      20      21
+CY1216804_105_1547      84      92
+CY1216804_105_1580      7       14
+CY1216804_106_1527              6
+CY1216804_108_1449      8       19
+CY1216804_119_1526      6       6
+CY1216804_123_1520              13
+CY1216804_123_1539      5
+
+</pre>
+
+# Sanity check: compare your results to ours
 
 Simply download the results folder
 
