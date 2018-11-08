@@ -164,9 +164,11 @@ You should see FOUR folders with results as shown here
 
 - *trimmomatic* contains the QC and trimming step with Trimmomatic
 
-Trimmomatic output files are explained here: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf Page 4
-
 ![Alt text](../docs/folder_structure_results_trimmomatic.jpg)
+
+Trimmomatic output files are explained here:
+
+http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf Page 4
 
 - *fastqc_trim* contains the FastQC results on the trimmed files
 
@@ -196,11 +198,19 @@ ViReMa output files are explained here: https://sourceforge.net/projects/virema/
 ## Output files 
 
 The output files are also found in the *virema* folder. They have extension <i>Recombination_Results.par*</i> and 
-are produced by running the script parse-recomb-results-Fuzz.pl on this ViReMa file <i>Recombination_Results.txt</i>
+are produced by running the script parse-recomb-results-Fuzz.pl on the <i>Recombination_Results.txt</i> files produced by ViReMa.
+
+For example for sample 6E type this command: 
 
 <pre>
-perl parse-recomb-results-Fuzz.pl -i $in_file -o ${in_file}.par  -d 1
-perl parse-recomb-results-Fuzz.pl -i $in_file -o ${in_file}.par5 -d 5
+
+# comparison  matrix with read cutoff value of 1
+
+perl parse-recomb-results-Fuzz.pl -i 6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.txt -o 6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.par  -d 1
+
+# comparison  matrix with read cutoff value of 5
+perl parse-recomb-results-Fuzz.pl -i 6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.txt -o 6_TTGGACTC-GGAAGCAG_L001both_unaligned_Virus_Recombination_Results.par5 -d 5
+
 </pre>
 
 Let's take a peek inside one of those files: 
@@ -222,11 +232,14 @@ CY1216804       105     1547    77      6       83      0
 
 </pre>
 
-# Further analyses: Compare the DIP profiles of two or more samples
+# Compare the DIP profiles of two or more samples
 
-Our samples are biological replicates. In theory they should have identical results; 
-in practice, we DO need to verify how well their DIP profie  match.
+Our samples are biological replicates. In theory they should have identical results. 
+In practice, we DO need to verify how well their DIP profiles  match.
 
+The script CreateMatrix_DIpar5.pl compares the DIP profiles of two or more samples and produces a comparison matrix.
+
+Let us generate the comparison matrix between the DIP profiles of samples 6E and 11E that were generated with a read cutoff value of 5.
 
 <pre>
 # create a folder for this analysis
