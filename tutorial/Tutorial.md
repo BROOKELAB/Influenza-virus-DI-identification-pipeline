@@ -131,7 +131,7 @@ ViReMa --X  8
 ViReMa --defuzz 3
 </pre>
 
-However, you do not have to take our word for it. Simply change the values in the configuration file.
+To change the values please edit the corresponding line(s) of the configuration file.
 One such configuration file is provided here: ![runE-Cal07-setup3.conf](conf/runE-Cal07-setup3.conf).
 
 Additional information that can also be specified inside the configuration file rather than at the command line include 
@@ -142,7 +142,7 @@ Additional information that can also be specified inside the configuration file 
 
 It is important to put in the same input folder all fastq files that are going to be analyzed together by the same pipeline and with the same parameters. 
 
-To run the pipeline type these commands:
+## To run the pipeline type these commands:
 
 <pre>
 
@@ -222,7 +222,10 @@ CY1216804       105     1547    77      6       83      0
 
 </pre>
 
-# Comparing the DIP profiles of two or more samples
+# Further analyses: Compare the DIP profiles of two or more samples
+
+Our samples are biological replicates. In theory they should have identical results; 
+in practice, we DO need to verify how well their DIP profie  match.
 
 
 <pre>
@@ -272,7 +275,8 @@ CY1216804_123_1539      5
 
 </pre>
 
-# Sanity check: compare your results to ours
+
+# Compare your results to ours
 
 Simply download the results folder
 
