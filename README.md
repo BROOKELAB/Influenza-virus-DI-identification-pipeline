@@ -1,5 +1,4 @@
 # Influenza-virus-DI-identification-pipeline
-Repo for Chris Brooke's DARPA project
 
 # DESCRIPTION
 
@@ -8,6 +7,8 @@ The mechanisms and consequences of defective interfering particle (DIP) formatio
 However, NGS approaches pose numerous technical challenges, including the precise identification and mapping of deletion junctions in the presence of frequent mutation and base-calling errors, and the potential for numerous experimental and computational artifacts. 
 
 We developed an Illumina-based sequencing framework and bioinformatics pipeline capable of generating highly accurate and reproducible profiles of DIP-associated junction sequences.  This tutorial will illustrate the use of this framework with real data. The first part will focus on DIP detection and the second part will focus on DIP-junction comparison.
+
+We have published a manuscript describing this framework here: DOI:10.1128/JVI.00354-19 
 
 # WORKFLOW OF THE PIPELINE
 
