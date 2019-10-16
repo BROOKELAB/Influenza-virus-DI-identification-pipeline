@@ -80,7 +80,7 @@ Nextflow generates two folders to keep track of execution progress. You can dele
 The actual results of the pipeline are placed in these folders:
 
 - <b>trimmomatic/</b>  contains the results of QC, filter and trim of the raw reads with Trimmomatic
-- <b>fastqc_trim/</b>  contains the results of FastQC on the trimmed reads
+- <b>fastqc/</b>       contains the results of FastQC on  raw and trimmed reads
 - <b>bowtie2/</b>      contains the results of aligning the trimmed reads to the genome with Bowtie2
 - <b>virema/</b>       contains the results of running ViReMa on the unaligned reads to detect DIP-associated deletion junctions. Each sample will have several files with intermediary and final results. The final results are the files ending in <i> *.par </i>  <i> *.par5 </i> or <i> *par.50 </i>
 
