@@ -20,18 +20,20 @@ Finally, the comparative analysis can be performed with programs provided here
 
 # DEPENDENCIES
 
+This program expects the following tools/languages to be installed as *modules* and be available in your path:
 
-This program expects the following tools/languages to be installed as modules and be available in your path:
-
-- Nextflow    tested with version 0.27.3 ( download page https://github.com/nextflow-io/nextflow/releases?after=v0.29.0-RC1 )
-- Trimmomatic tested with version 0.36 ( download page https://github.com/timflutre/trimmomatic)
-- FastQC      tested with version 0.11.5  ( download page https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-- Bowtie2     tested with 2.3.2 ( download page  http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
-- Bowtie      tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml)
-- Python      tested with version 2.7.13 ( download page https://www.python.org/downloads/)
+- Nextflow    tested with version 19.07.0 ( download page https://github.com/nextflow-io/nextflow/releases )
+- Trimmomatic tested with version 0.38 ( download page https://github.com/timflutre/trimmomatic )
+- fastp       tested with version 0.20.0 ( download page https://github.com/OpenGene/fastp )
+- MultiQC     tested with version 1.7 ( download page https://github.com/ewels/MultiQC )
+- seqtk       tested with version 1.2 ( download page https://github.com/lh3/seqtk )
+- FastQC      tested with version 0.11.5  ( download page https://www.bioinformatics.babraham.ac.uk/projects/fastqc/ )
+- Bowtie2     tested with 2.3.2 ( download page  http://bowtie-bio.sourceforge.net/bowtie2/index.shtml )
+- Bowtie      tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml )
+- Python      tested with version 2.7.13 ( download page https://www.python.org/downloads/ )
 - Perl        tested with version 5.24.1  ( download page https://www.perl.org/ )
 - ViReMa      tested with ViReMa-with-fuzz ( included in this repo )
-
+- Java        tested with version 1.8.0_152-b16 ( download page https://www.java.com/en/download/help/linux_x64_install.xml )
 
 # INSTALLATION INSTRUCTIONS
 
@@ -40,7 +42,7 @@ This program expects the following tools/languages to be installed as modules an
 
 <pre>
 
-# Make sure that Java v7+ is installed:
+# Make sure that Java v1.7+ is installed:
 java -version
 
 # Install Nextflow
@@ -58,32 +60,15 @@ sudo mv nextflow /usr/local/bin
 - Install this pipeline: The pipeline itself does not need installation. Simply copy this repo to a local folder and nextflow should be able to run it
 
 
-# INDEXING THE GENOME(S)
-
-Each genome needs TWO indices, one for Bowtie and one for Bowtie2
-
-- Run this command to index the genome for Bowtie: 
-
-<pre>
-bowtie-build genome.fasta genome
-</pre>
-
-- Run this command to index the genome for Bowtie2:
-
-<pre>
-bowtie2-build genome.fasta genome
-</pre>
-
 # RUNNING THE PIPELINE
 
-This pipeline expects each sample to be made up of paired reads of viral RNA.
-The sample(s) to be analyzed by this pipeline must be placed together in the same folder.
-Prepare a configuration file. Some examples of configuration files are provided in the folder customizable-pipeline-config-files
-
-To run the pipeline type this command: 
+- This pipeline expects each sample to be made up of short Illumina reads (single-end or paired-end) of viral RNA. We tested the pipeline with avian flu strains.
+- The sample(s) to be analyzed by this pipeline must be placed together in the same folder and must have a similar file naming patters; for example, all files end in fastq | fq | fastq.gz | fq.gz
+- Prepare a configuration file.  Some examples of configuration files are provided in the folder <i>new-config-files/</i>
+- To run the pipeline type this command: 
 
 <pre>
-nextflow -c config.file full-pipeline-customizable-v2.nf
+nextflow -c config.file full-pipeline-customizable-v3.nf
 </pre>
 
 
