@@ -20,7 +20,7 @@ Finally, the comparative analysis can be performed with programs provided here
 
 # DEPENDENCIES
 
-This program expects the following tools/languages to be installed as *modules* and be available in your path:
+This pipeline expects the following tools/languages to be installed as *linux modules* (http://modules.sourceforge.net/) and be available in your path:
 
 - Nextflow    tested with version 19.07.0 ( download page https://github.com/nextflow-io/nextflow/releases )
 - Trimmomatic tested with version 0.38 ( download page https://github.com/timflutre/trimmomatic )
@@ -62,8 +62,8 @@ sudo mv nextflow /usr/local/bin
 
 # RUNNING THE PIPELINE
 
-- This pipeline expects each sample to be made up of short Illumina reads (single-end or paired-end) of viral RNA. We tested the pipeline with avian flu strains.
-- The sample(s) to be analyzed by this pipeline must be placed together in the same folder and must have a similar file naming patters; for example, all files end in fastq | fq | fastq.gz | fq.gz
+- This pipeline expects each sample of viral RNA to be made up of short Illumina reads (single-end or paired-end). We tested the pipeline with avian flu strains.
+- The sample(s) to be analyzed by this pipeline must be placed together in the same folder and must have a similar file naming patter; for example, all files should end in fastq | fq | fastq.gz | fq.gz
 - Prepare a configuration file.  Some examples of configuration files are provided in the folder <i>new-config-files/</i>
 - To run the pipeline type this command: 
 
