@@ -10,7 +10,7 @@ This configuration file is for a dataset of *single-end* reads.
 Trimmomatic is used from trimming. The Nextera adaptors could be present; the tool will find and remove them.
 The downsampling parameter is specifed because it is also unknown if the samples have contaminants from the host.
 
-# SCENARIO 2: pilot-run-trimmomatic-PE.conf
+# SCENARIO 3: pilot-run-trimmomatic-PE.conf
 
 This configuration file is for a dataset of *paired-end* reads. 
 Trimmomatic is used from trimming. The TrueSeq adaptors could be present; the tool will find and remove them.
