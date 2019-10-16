@@ -6,7 +6,7 @@ The mechanisms and consequences of defective interfering particle (DIP) formatio
 
 However, NGS approaches pose numerous technical challenges, including the precise identification and mapping of deletion junctions in the presence of frequent mutation and base-calling errors, and the potential for numerous experimental and computational artifacts. 
 
-We developed an Illumina-based sequencing framework and bioinformatics pipeline capable of generating highly accurate and reproducible profiles of DIP-associated junction sequences.  This tutorial will illustrate the use of this framework with real data. The first part will focus on DIP detection and the second part will focus on DIP-junction comparison.
+We developed an Illumina-based sequencing framework and bioinformatics pipeline capable of generating highly accurate and reproducible profiles of DIP-associated junction sequences.  The pipeline is linux-based. This tutorial will illustrate the use of this framework with real data. The first part will focus on DIP detection and the second part will focus on DIP-junction comparison.
 
 We have published a manuscript describing this framework here: DOI:10.1128/JVI.00354-19 
 
@@ -14,26 +14,26 @@ We have published a manuscript describing this framework here: DOI:10.1128/JVI.0
 
 ![Alt text](docs/workflow.jpg?raw=true "Workflow")
 
-The first steps are done manually: Sample collection, fluidigm library preparation and sequencing in an Illumina platform.
-The nextflow pipeline performs steps three thorugh five and generates DIPs.
-Finally, the comparative analysis can be performed with programs provided here
+The first two steps are done manually: Sample collection, fluidigm library preparation and sequencing in an Illumina platform.
+The pipeline performs steps three thorugh five and generates DIPs.
+Finally, the last comparative analysis step can be performed by running the programs that also come with this pipeline.
 
 # DEPENDENCIES
 
 This pipeline expects the following tools/languages to be installed as *linux modules* (http://modules.sourceforge.net/) and be available in your path:
 
-- Nextflow    tested with version 19.07.0 ( download page https://github.com/nextflow-io/nextflow/releases )
-- Trimmomatic tested with version 0.38 ( download page https://github.com/timflutre/trimmomatic )
-- fastp       tested with version 0.20.0 ( download page https://github.com/OpenGene/fastp )
-- MultiQC     tested with version 1.7 ( download page https://github.com/ewels/MultiQC )
-- seqtk       tested with version 1.2 ( download page https://github.com/lh3/seqtk )
-- FastQC      tested with version 0.11.5  ( download page https://www.bioinformatics.babraham.ac.uk/projects/fastqc/ )
-- Bowtie2     tested with 2.3.2 ( download page  http://bowtie-bio.sourceforge.net/bowtie2/index.shtml )
-- Bowtie      tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml )
-- Python      tested with version 2.7.13 ( download page https://www.python.org/downloads/ )
-- Perl        tested with version 5.24.1  ( download page https://www.perl.org/ )
-- ViReMa      tested with ViReMa-with-fuzz ( included in this repo )
-- Java        tested with version 1.8.0_152-b16 ( download page https://www.java.com/en/download/help/linux_x64_install.xml )
+- <b>Nextflow</b>    tested with version 19.07.0 ( download page https://github.com/nextflow-io/nextflow/releases )
+- <b>Trimmomatic</b> tested with version 0.38 ( download page https://github.com/timflutre/trimmomatic )
+- <b>fastp</b>       tested with version 0.20.0 ( download page https://github.com/OpenGene/fastp )
+- <b>MultiQC</b>     tested with version 1.7 ( download page https://github.com/ewels/MultiQC )
+- <b>seqtk</b>       tested with version 1.2 ( download page https://github.com/lh3/seqtk )
+- <b>FastQC</b>      tested with version 0.11.5  ( download page https://www.bioinformatics.babraham.ac.uk/projects/fastqc/ )
+- <b>Bowtie2</b>     tested with 2.3.2 ( download page  http://bowtie-bio.sourceforge.net/bowtie2/index.shtml )
+- <b>Bowtie</b>      tested with version 1.2.0 ( download page http://bowtie-bio.sourceforge.net/index.shtml )
+- <b>Python</b>      tested with version 2.7.13 ( download page https://www.python.org/downloads/ )
+- <b>Perl</b>        tested with version 5.24.1  ( download page https://www.perl.org/ )
+- <b>ViReMa</b>      tested with ViReMa-with-fuzz ( included in this repo )
+- <b>Java</b>        tested with version 1.8.0_152-b16 ( download page https://www.java.com/en/download/help/linux_x64_install.xml )
 
 # INSTALLATION INSTRUCTIONS
 
@@ -64,8 +64,8 @@ sudo mv nextflow /usr/local/bin
 
 - This pipeline expects each sample of viral RNA to be made up of short Illumina reads (single-end or paired-end). We tested the pipeline with avian flu strains.
 - The sample(s) to be analyzed by this pipeline must be placed together in the same folder and must have a similar file naming patter; for example, all files should end in fastq | fq | fastq.gz | fq.gz
-- Prepare a configuration file.  Some examples of configuration files are provided in the folder <i>new-config-files/</i>
-- To run the pipeline type this command: 
+- Prepare a configuration file.  Some examples of configuration files are provided in the folder <b>new-config-files/</b>
+- To run the pipeline type this command at the prompt: 
 
 <pre>
 nextflow -c config.file full-pipeline-customizable-v3.nf
