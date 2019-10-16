@@ -71,7 +71,52 @@ sudo mv nextflow /usr/local/bin
 nextflow -c config.file full-pipeline-customizable-v3.nf
 </pre>
 
+Execution progress messages will be printed to the screen like this:
 
+<pre>
+N E X T F L O W  ~  version 19.07.0
+Launching `../full-pipeline-customizable-v3.nf` [compassionate_swanson] - revision: e787d00a80
+===================================
+DIP-pipeline  ~  version 3.0
+===================================
+Reference      : /somepath/genome/all_h9n2.fasta
+Reads          : /somepath/data/raw-seq-tiny/*.fq
+Data Type      : Single-End
+Read prep tool : fastp
+fastp version  : fastp/0.20.0-IGB-gcc-4.9.4
+autodetect adapter: true
+Forward adapter seq: false
+Reverse adapter seq: false
+trim Ns        : true
+bowtie2 version: Bowtie2/2.3.2-IGB-gcc-4.9.4
+bowtie2 aln options: L,0,-0.3
+bowtie1 version: Bowtie/1.2.0-IGB-gcc-4.9.4
+ViRema path    : /somepath/apps/ViReMa_with_Fuzz
+ViRema micro   : 20
+ViRema defuzz  : 3
+ViRema mismatch: 1
+ViRema --X option: 8
+scripts dir    : /somepath/src
+Output dir     : /somepath/results/pilot-w-tiny
+Working dir    : /somepath/src/work
+Current home   : /somepath/userid
+Current user   : userid
+Current path   : /somepath/src/
+E-mail Address : userid@somedomain.edu
+=========================================
+[skipped  ] process > bowtie2Index_genome (all_h9n2.fasta)   [100%] 1 of 1, stored: 1 ✔
+[skipped  ] process > bowtie1Index_genome (all_h9n2.fasta)   [100%] 1 of 1, stored: 1 ✔
+[bd/6e389c] process > readPrep_fastp (reads: pooled_HVP2-... [100%] 7 of 7, cached: 7 ✔
+[ad/6f44e1] process > readPrep_MultiQC_fastp                 [100%] 1 of 1, cached: 1 ✔
+[fb/16a204] process > runbowtie2 (pooled_HVP2-tiny-1M)       [100%] 7 of 7, cached: 7 ✔
+[d7/d105ce] process > runVirema (pooled_HVP2-tiny-1M)        [100%] 7 of 7, cached: 7 ✔
+[cf/fd2d1d] process > calcSummary (pooled_HVP2-tiny-1M)      [100%] 7 of 7, cached: 7 ✔
+[skipping] Stored process > bowtie1Index_genome (all_h9n2.fasta)
+[skipping] Stored process > bowtie2Index_genome (all_h9n2.fasta)
+[DIP-pipeline] COMPLETED. Sent summary e-mail to userid@somedomain.edu
+
+
+</pre>
 
 # OUTPUTS
 
@@ -79,9 +124,9 @@ Nextflow generates two folders to keep track of execution progress. You can dele
 
 The actual results of the pipeline are placed in these folders:
 
-- <b>trimmomatic/</b>  contains the results of QC, filter and trim of the raw reads with Trimmomatic
+- <b>read-preparation/</b>  contains the results of QC, filter and trim of the raw reads with Trimmomatic or with fastp
 - <b>fastqc/</b>       contains the results of FastQC on  raw and trimmed reads
-- <b>bowtie2/</b>      contains the results of aligning the trimmed reads to the genome with Bowtie2
+- <b>align/</b>      contains the results of aligning the trimmed reads to the genome with Bowtie2
 - <b>virema/</b>       contains the results of running ViReMa on the unaligned reads to detect DIP-associated deletion junctions. Each sample will have several files with intermediary and final results. The final results are the files ending in <i> *.par </i>  <i> *.par5 </i> or <i> *par.50 </i>
 
 
@@ -108,6 +153,21 @@ perl  CreateMatrix_DI_VarDepth.pl -d outputdir -o outputfile.tsv -f 1 -m 5
 </pre>
   
 Where <i> -m 5 </i> is a fixed read support value of 5
+
+# PERFORMANCE ISSUES
+
+The performance of ViRema depends on many factors, the two main ones are the size of the input file of <b>unaligned reads</b> and the amount of compute resources (CPUs and memory) that are allocated to the process.
+
+Large input files have a detrimental effect on the performance of ViRema; in fact, very large input files will break the tool as it will eventually starve for memory.
+
+The most likely causes of large files of <b>unaligned reads</b>  are: 
+- a) the viral genome has many structural features that regular aligners like bowtie cannot cope with, 
+- b) the original file of raw reads has extremely high coverage, 20,000x or higher, 
+- c) the sample has RNA from other sources like the host
+
+ViRema was written to address the scenario in a); it has a hard time with the other two scenarios. We address these last two cases by downsampling the file of unaligned reads. You can specify how many reads to downsample to in the configuration file.
+
+<d>How much coverage is recommended - i.e. how many reads should my input file have?</d> Unfortunately we have not found a published ViRema benchmark that would address this question directly. However, our empirical tests show tha a coverage between 1,000x and 10,000x works fine; whereas a coverage of 20,000x or higher has a detrimental effect of performance.
 
 # LICENSE
 
