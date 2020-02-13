@@ -12,7 +12,7 @@ To generate the maps  (on Mac) you need to do the following:
 3) Type: python -m SimpleHTTPServer
 4) Open safari or any browser and go to: http://127.0.0.1:8000
 5) Press on PB2_DI_Map.html
-6) You should see the map with DI lines in red (Fig 1). Now you can download a PDF version of the map to be used in PowerPoint or photo editor like Adobe illustrator to produce pub;ishable figures like Fig 2 
+6) You should see the map with DI lines in red (Fig 1). Now you can download a PDF version of the map to be used in PowerPoint or photo editor like Adobe illustrator to produce publishable figures like Fig 2 
 
 
 <img src="DImaps/DI_red.png" alt="Girl in a jacket" width="300" height="500">
