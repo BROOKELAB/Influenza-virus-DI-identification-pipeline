@@ -22,7 +22,7 @@ To generate the maps  (on Mac) you need to do the following:
  <figcaption>Fig.2 - DI maps for five PR8 segments</figcaption><br><br>
  
  
-So basically, you are creating a local environment to run the D3.js library (you can read more about in the D3.js documentation). To run your own DIs, you need the start and end sites to be saved in the CSV file, exactly the same way as in the PR8_PB2_DI.csv. For the control sites, you need to add the first and last position of your genome. On the other hand, you can manipulate the features of the maps from the HTML code; you need to open the code by any text editor and change the values or whatever you need (remember to save the changes). Have a look at the word document of the HTML code, where comments were added to explain the values and variables that you can mess with.  
+So basically, you are creating a local environment to run the D3.js library (you can read more about in the D3.js documentation: https://github.com/d3/d3/wiki). To run your own DIs, you need the start and end sites to be saved in the CSV file, exactly the same way as in the PR8_PB2_DI.csv. For the control sites, you need to add the first and last position of your genome. On the other hand, you can manipulate the features of the maps from the HTML code; you need to open the code by any text editor and change the values or whatever you need (remember to save the changes). Have a look at the word document of the HTML code, where comments were added to explain the values and variables that you can mess with.  
 
 
 
